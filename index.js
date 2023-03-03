@@ -49,6 +49,17 @@ router.get("/api/wx_openid", async (ctx) => {
     ctx.body = ctx.request.headers["x-wx-openid"];
   }
 });
+router.post('/message/post', async ctx => {
+  const { ToUserName, FromUserName, Content, CreateTime } = ctx.request.body;
+
+  ctx.body = {
+    ToUserName: FromUserName,
+    FromUserName: ToUserName,
+    CreateTime: +new Date(),
+    MsgType: 'text',
+    Content: `反弹你发的消息：${Content}`,
+  };
+});
 
 const app = new Koa();
 app
